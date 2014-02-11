@@ -157,13 +157,33 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) { //Start Class
 
             $i = 0;
 
+            //$styles['colors']['desc']           = 'An exhaustive list of all the colors used on this site.';
             $styles['headers']['desc']          = 'Header elements have a hierarchy, the top being the h1, or Header 1. Most of the time, headers should be used for things like titles, subheaders, or section titles.';
             $styles['typography']['desc']       = '';
             $styles['content_elements']['desc'] = '';
+            $styles['lists']['desc']            = '';
             $styles['media']['desc']            = '';
             //$styles['patterns']['desc']         = '';
+            //$styles['buttons']['desc']         = '';
 
+/***************
 
+Colors
+
+****************/
+
+/*
+            $styles['colors'][$i]['title']      = '';
+            $styles['colors'][$i]['desc']       = '';
+            $styles['colors'][$i]['example']    = '';
+            $i++;
+*/
+
+/***************
+
+Headers
+
+****************/
 
             $styles['headers'][$i]['title']      = 'Header 1';
             $styles['headers'][$i]['desc']       = 'Header 1 is mostly used for Page and Post titles. It is considered the most important element on the page, so use sparingly.';
@@ -195,11 +215,25 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) { //Start Class
             $styles['headers'][$i]['example']    = '<h6>Sixth-level Header 6</h6>';
             $i++;
 
+/***************
 
+Typography
+
+****************/
 
             $styles['typography'][$i]['title']      = 'Abbreviation';
             $styles['typography'][$i]['desc']       = 'For any abbreviation, acronym, initialism, etc. Text in the title attribute will appear in the mouseover text.';
             $styles['typography'][$i]['example']    = 'The shuttle was launched by <abbr title="National Aeronautics and Space Administration">NASA</abbr>.';
+            $i++;
+
+            $styles['typography'][$i]['title']      = 'Address';
+            $styles['typography'][$i]['desc']       = 'Used for the formatting addresses.';
+            $styles['typography'][$i]['example']    = '<address>Acme Corp<br />PO Box 12345<br />Nashville, TN 37212</address>';
+            $i++;
+
+            $styles['typography'][$i]['title']      = 'Bold / Embolden';
+            $styles['typography'][$i]['desc']       = 'Conveys extra importance or a keyword (product name in a review, etc). Should be used as a last resort.';
+            $styles['typography'][$i]['example']    = 'It was the <b>curtains</b> she liked.';
             $i++;
 
             $styles['typography'][$i]['title']      = 'Citation';
@@ -217,14 +251,9 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) { //Start Class
             $styles['typography'][$i]['example']    = 'Walter <dfn title="said nothing">acquiesced</dfn> to Phyllis though her statement was inaccurate.';
             $i++;
 
-            $styles['typography'][$i]['title']      = 'Edited Text';
-            $styles['typography'][$i]['desc']       = 'Shows deleted or retracted text and possibly corrections. Requires two tags: <code>del</code> for the deleted text, and <code>ins</code> for the inserted text. Both have a datetime attribute for timestamping the changes.';
+            $styles['typography'][$i]['title']      = 'Deleted Text';
+            $styles['typography'][$i]['desc']       = 'Shows deleted or retracted text, usually followed by the updated or corrected text. Has a datetime attribute for timestamping the change.';
             $styles['typography'][$i]['example']    = 'He won <del datetime="2012-02-05">7</del><ins datetime="2014-02-05">2</ins> world titles.';
-            $i++;
-
-            $styles['typography'][$i]['title']      = 'Embolden';
-            $styles['typography'][$i]['desc']       = 'Conveys extra importance or a keyword (product name in a review, etc).';
-            $styles['typography'][$i]['example']    = 'It was the <b>curtains</b> she liked.';
             $i++;
 
             $styles['typography'][$i]['title']      = 'Emphasis';
@@ -235,6 +264,11 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) { //Start Class
             $styles['typography'][$i]['title']      = 'Inline Quotes';
             $styles['typography'][$i]['desc']       = 'Used for quoting inline, rather than setting the quote apart like a blockquote.';
             $styles['typography'][$i]['example']    = 'The signs were all there.<q>This is impossible,</q>stated the detective.';
+            $i++;
+
+            $styles['typography'][$i]['title']      = 'Inserted Text';
+            $styles['typography'][$i]['desc']       = 'Shows corrected or updated text, usually alongside the deleted or retracted text. Has a datetime attribute for timestamping the change.';
+            $styles['typography'][$i]['example']    = 'He won <del datetime="2012-02-05">7</del><ins datetime="2014-02-05">2</ins> world titles.';
             $i++;
 
             $styles['typography'][$i]['title']      = 'Italics';
@@ -252,7 +286,7 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) { //Start Class
             $styles['typography'][$i]['example']    = '<a href="http://slushman.com">External Link (to another site)</a> or <a href="#headers">Internal Link (an anchor on this page)</a>';
             $i++;
 
-            $styles['typography'][$i]['title']      = 'Marked Text';
+            $styles['typography'][$i]['title']      = 'Marked / Highlighted Text';
             $styles['typography'][$i]['desc']       = 'For text marked or highlighted for reference purposes. When used in a quotation it indicates a highlight not originally present but added to bring the reader’s attention to that part of the text. When used in the main prose of a document, it indicates a part of the document that has been highlighted due to its relevance to the user’s current activity';
             $styles['typography'][$i]['example']    = 'I kept trying to reiterate that the <mark>jewels</mark> were what were stolen.';
             $i++;
@@ -277,9 +311,14 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) { //Start Class
             $styles['typography'][$i]['example']    = 'I said <strong>do not</strong> hit your brother!';
             $i++;
 
-            $styles['typography'][$i]['title']      = 'Superscript and Subscript';
-            $styles['typography'][$i]['desc']       = 'used only to mark up typographical conventions with specific meanings, not for typographical presentation. As a guide, only use these elements if their absence would change the meaning of the content.';
-            $styles['typography'][$i]['example']    = 'The doctor advising I drink h<sub>2</sub>0 as many as log<sup>8</sup> times per day.';
+            $styles['typography'][$i]['title']      = 'Subscript';
+            $styles['typography'][$i]['desc']       = 'Used for subscripts, where the text appears half a character below the baseline - like chemical formulas.';
+            $styles['typography'][$i]['example']    = 'The doctor advised I drink 10 glasses of h<sub>2</sub>0 per day.';
+            $i++;
+
+            $styles['typography'][$i]['title']      = 'Superscript';
+            $styles['typography'][$i]['desc']       = 'Used for superscripts, where the text appear half a character above the baseline - like footnotes or mathematic notation.';
+            $styles['typography'][$i]['example']    = 'The anomoly occured as many as log<sup>8</sup> times per day.';
             $i++;
 
             $styles['typography'][$i]['title']      = 'Time';
@@ -292,7 +331,48 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) { //Start Class
             $styles['typography'][$i]['example']    = 'We determined the Towers of Hanoi problem would be solved in <var>n</var> moves, based on the number of disks.';
             $i++;
 
+/***************
 
+Lists
+
+****************/
+
+            $styles['lists'][$i]['title']      = 'List, Definition';
+            $styles['lists'][$i]['desc']       = 'For lists of terms (use the dt tag) and their descriptions (use the dd tag), although it can be used anywhere a parent/child relationship needs to be represented.';
+            $styles['lists'][$i]['example']    = '<dl><dt>Ratio</dt><dd>A relationship between two numbers of the same kind</dd><dt>Fraction</dt><dd>Represents a part of a whole or, more generally, any number of equal parts</dd></dl>';
+            $i++;
+
+            $styles['lists'][$i]['title']      = 'List, Dialog';
+            $styles['lists'][$i]['desc']       = 'For marking dialog.';
+            $styles['lists'][$i]['example']    = '<dialog><dt> Costello</dt>
+                            <dd> Look, you gotta first baseman?</dd>
+                            <dt> Abbott</dt>
+                            <dd> Certainly.</dd>
+                            <dt> Costello</dt>
+                            <dd> Who\'s playing first?</dd>
+                            <dt> Abbott</dt>
+                            <dd> That\'s right.</dd>
+                            <dt> Costello</dt>
+                            <dd> When you pay off the first baseman every month, who gets the money?</dd>
+                            <dt> Abbott</dt>
+                            <dd> Every dollar of it.</dd></dialog>';
+            $i++;
+
+            $styles['lists'][$i]['title']      = 'List, Ordered';
+            $styles['lists'][$i]['desc']       = 'A list with a definte order, like an outline.';
+            $styles['lists'][$i]['example']    = '<ol><li>Type the item</li><li>Type the second item<ol><li>Leave out extra spaces</li><li>Add indentation</li></ol></li><li>Type the third item</li></ol>';
+            $i++;
+
+            $styles['lists'][$i]['title']      = 'List, Unordered';
+            $styles['lists'][$i]['desc']       = 'A list without a defined order.';
+            $styles['lists'][$i]['example']    = '<ul><li>Bob</li><li>Sam<ul><li>Sally</li><li>Samantha</li></ul></li><li>Jessica</li></ul>';
+            $i++;
+
+/***************
+
+Content Elements
+
+****************/
 
             $styles['content_elements'][$i]['title']      = 'Blockquotes';
             $styles['content_elements'][$i]['desc']       = 'Represents a section that is being quoted from another source.';
@@ -378,21 +458,6 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) { //Start Class
             $styles['content_elements'][$i]['example']    = '<p>Amanda was certain Jeff was not telling the truth. The document she just found in his desk proved he could not be trusted. But he had just left with her son and she was frozen with indecision.</p><hr><p>Jeff drove calmly through the winding streets of the Dallas suburb. The sun was still high enough in the sky that he had no use for the visors and folded his up against the ceiling of the car.</p>';
             $i++;
 
-            $styles['content_elements'][$i]['title']      = 'List, Definition';
-            $styles['content_elements'][$i]['desc']       = 'For lists of terms (use the dt tag) and their descriptions (use the dd tag), although it can be used anywhere a parent/child relationship needs to be represented (like marking dialog).';
-            $styles['content_elements'][$i]['example']    = '<dl><dt>Ratio</dt><dd>A relationship between two numbers of the same kind</dd><dt>Fraction</dt><dd>Represents a part of a whole or, more generally, any number of equal parts</dd></dl>';
-            $i++;
-
-            $styles['content_elements'][$i]['title']      = 'List, Ordered';
-            $styles['content_elements'][$i]['desc']       = 'A list with a definte order, like an outline.';
-            $styles['content_elements'][$i]['example']    = '<ol><li>Type the item</li><li>Type the second item<ol><li>Leave out extra spaces</li><li>Add indentation</li></ol></li><li>Type the third item</li></ol>';
-            $i++;
-
-            $styles['content_elements'][$i]['title']      = 'List, Unordered';
-            $styles['content_elements'][$i]['desc']       = 'A list without a defined order.';
-            $styles['content_elements'][$i]['example']    = '<ul><li>Bob</li><li>Sam<ul><li>Sally</li><li>Samantha</li></ul></li><li>Jessica</li></ul>';
-            $i++;
-
             $styles['content_elements'][$i]['title']      = 'Paragraphs';
             $styles['content_elements'][$i]['desc']       = 'Blocks of text. Many times the p tags are added by WordPress automatically.';
             $styles['content_elements'][$i]['example']    = '<p>This text is inside a paragraph. I have nothing important to say here, so I plan to type until I get annoyed with myself and how ridiculous I read while typing this out for you to read on the screen. Yeah, I can be finished now.</p>';
@@ -414,7 +479,11 @@ If you use these elements, you must use every element. They should appear in thi
             $styles['content_elements'][$i]['example']    = '<table><thead><tr><th>Column 1</th><th>Column 2</th></tr></thead><tbody><tr><td>Row 1, Col 1</td><td>Row 1, Col 2</td></tr><tr><td>Row 2, Col 1</td><td>Row 2, Col 1</td></tr><tr><td>Row 3, Col 1</td><td>Row 3, Col 1</td></tr></tbody></table>';
             $i++;
 
+/***************
 
+Media
+
+****************/
 
             $styles['media'][$i]['title']       = 'Figure, image';
             $styles['media'][$i]['desc']        = 'Specifies self-contained content, like illustrations, diagrams, photos, code listings, etc.';
@@ -428,20 +497,20 @@ If you use these elements, you must use every element. They should appear in thi
 
             $styles['media'][$i]['title']       = 'Image, align left';
             $styles['media'][$i]['desc']        = '';
-            $styles['media'][$i]['example']     = '<img src="' . plugin_dir_url( __FILE__ ) . 'images/figure_test_picture.jpg" alt="align left picture" class="alignleft" />';
+            $styles['media'][$i]['example']     = '<div class="wp-caption"><img src="' . plugin_dir_url( __FILE__ ) . 'images/figure_test_picture.jpg" alt="align left picture" class="alignleft" /><p class="wp-caption-text">This is a caption.</p></div>';
             $i++;
 
             $styles['media'][$i]['title']       = 'Image, align center';
             $styles['media'][$i]['desc']        = '';
-            $styles['media'][$i]['example']     = '<img src="' . plugin_dir_url( __FILE__ ) . 'images/figure_test_picture.jpg" alt="align center picture" class="aligncenter" />';
+            $styles['media'][$i]['example']     = '<div class="wp-caption"><img src="' . plugin_dir_url( __FILE__ ) . 'images/figure_test_picture.jpg" alt="align center picture" class="aligncenter" /><p class="wp-caption-text">This is a caption.</p></div>';
             $i++;
 
             $styles['media'][$i]['title']       = 'Image, align right';
             $styles['media'][$i]['desc']        = '';
-            $styles['media'][$i]['example']     = '<img src="' . plugin_dir_url( __FILE__ ) . 'images/figure_test_picture.jpg" alt="align right picture" class="alignright" />';
+            $styles['media'][$i]['example']     = '<div class="wp-caption"><img src="' . plugin_dir_url( __FILE__ ) . 'images/figure_test_picture.jpg" alt="align right picture" class="alignright" /><p class="wp-caption-text">This is a caption.</p></div>';
             $i++;
 
-            $styles['media'][$i]['title']       = 'Image, with caption';
+            $styles['media'][$i]['title']       = 'Image, no alignment, with caption';
             $styles['media'][$i]['desc']        = '';
             $styles['media'][$i]['example']     = '<div class="wp-caption"><img src="' . plugin_dir_url( __FILE__ ) . 'images/figure_test_picture.jpg" alt="image with caption picture" /><p class="wp-caption-text">This is a caption.</p></div>';
             $i++;
@@ -456,12 +525,68 @@ If you use these elements, you must use every element. They should appear in thi
             $styles['media'][$i]['desc']        = '';
             $styles['media'][$i]['example']     = '';
             $i++;
+*/
 
+/***************
 
+Patterns
 
+****************/
+
+/*
+            $styles['patterns'][$i]['title']      = 'Post Navigations';
+            $styles['patterns'][$i]['desc']       = 'The Older Posts/Newer Posts links at the bottom of a posts page.';
+            $styles['patterns'][$i]['example']    = '';
+            $i++;
+
+            $styles['patterns'][$i]['title']      = 'Breadcrumbs';
+            $styles['patterns'][$i]['desc']       = 'A naviagation aid allowing users to keep track of their current location on the site and the parent pages leading back to the index.';
+            $styles['patterns'][$i]['example']    = '';
+            $i++;
+
+            $styles['patterns'][$i]['title']      = 'Comments';
+            $styles['patterns'][$i]['desc']       = 'Comment areas for posts and pages.';
+            $styles['patterns'][$i]['example']    = 'See the bottom of this page for the example.';
+            $i++;
+
+            $styles['patterns'][$i]['title']      = 'Logo';
+            $styles['patterns'][$i]['desc']       = 'The logo used for this site.';
+            $styles['patterns'][$i]['example']    = '';
+            $i++;
+            
+            $styles['patterns'][$i]['title']      = 'Default Custom Avatar';
+            $styles['patterns'][$i]['desc']       = 'The default avatar used for comments, if not one fo the default WordPress options.';
+            $styles['patterns'][$i]['example']    = '';
+            $i++;
+            
             $styles['patterns'][$i]['title']      = '';
             $styles['patterns'][$i]['desc']       = '';
             $styles['patterns'][$i]['example']    = '';
+            $i++;
+
+*/
+
+/***************
+
+Buttons
+
+****************/
+
+/*
+
+            $styles['buttons'][$i]['title']      = '';
+            $styles['buttons'][$i]['desc']       = '';
+            $styles['buttons'][$i]['example']    = '';
+            $i++;
+            
+            $styles['buttons'][$i]['title']      = '';
+            $styles['buttons'][$i]['desc']       = '';
+            $styles['buttons'][$i]['example']    = '';
+            $i++;
+            
+            $styles['buttons'][$i]['title']      = '';
+            $styles['buttons'][$i]['desc']       = '';
+            $styles['buttons'][$i]['example']    = '';
             $i++;
 */
 

@@ -2,7 +2,16 @@
   margin-bottom: 3em; }
 
 .style_section {
-  margin-bottom: 3em; }
+  margin-bottom: 3em;
+  padding-bottom: 3em;
+  border-bottom: 1px solid; }
+
+.section_title {
+  display: inline-block; }
+
+.backtotoplink {
+  display: inline-block;
+  float: right; }
 
 .style_item {
   margin-bottom: 3em; }
@@ -12,3 +21,6 @@
   border: dotted;
   display: block;
   overflow: hidden; }
+
+.top_spacer {
+  padding-top: 35px; }

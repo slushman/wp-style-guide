@@ -7,14 +7,19 @@ $vspacing: 1.5em;
 }
 
 .style_section {
-	margin-bottom: $vspacing*2;	
+	margin-bottom: $vspacing*2;
+	padding-bottom: $vspacing*2;
+	border-bottom: 1px solid;
 }
 
 .section_title {
-
+	display: inline-block;	
 }
 
-
+.backtotoplink {
+	display: inline-block;
+	float: right;
+}
 
 .section_description {
 
@@ -39,4 +44,6 @@ $vspacing: 1.5em;
 	overflow: hidden;
 }
 
-
+.top_spacer {
+	padding-top: 35px;
+}

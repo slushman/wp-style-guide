@@ -85,6 +85,9 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) {
 			// Register shortcodes
 			add_action( 'init', 				array( $this, 'register_shortcodes' ) );
 
+			// Register Style Guide sidebar
+			add_action( 'wp_loaded', 			array( $this, 'register_sidebar' ) );
+
 			// Add page parts
 			add_action( 'style_guide_page', 	array( $this, 'add_intro' ) );
 			add_action( 'style_guide_page', 	array( $this, 'add_toc' ) );
@@ -96,12 +99,6 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) {
 			add_action( 'style_guide_page', 	array( $this, 'add_buttons' ) );
 			add_action( 'style_guide_page', 	array( $this, 'add_media' ) );
 			add_action( 'style_guide_page', 	array( $this, 'add_widgets' ) );
-
-			// Register Style Guide sidebar
-			add_action( 'wp_loaded', 			array( $this, 'register_sidebar' ) );
-			add_action( 'wp_loaded', 			array( $this, 'add_widgets_to_sidebar' ) );
-
-			add_action( 'wp_footer', 			array( $this, 'show_my_sidebars' ) );
 
 		} // __construct()
 
@@ -392,13 +389,6 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) {
 
 		} // register_sidebar()
 
-		function show_my_sidebars() {
-
-			$sw = get_option( 'sidebars_widgets' );
-			print '<pre>' . htmlspecialchars( print_r( $sw, TRUE ) ) . '</pre>';
-		
-		}
-
 
 
 /* ==========================================================================
@@ -435,7 +425,7 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) {
 			foreach ( $groups as $group ) {
 
 				$capped = ucwords( str_replace( '_', ' ', $group ) );
-				$output .= '<a href="#' . $group . '"><h4>' . $capped . '</h4></a>';
+				echo '<a href="#' . $group . '"><h4>' . $capped . '</h4></a>';
 
 			} // $items foreach loop
 
@@ -479,20 +469,19 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) {
 			$items[$i]['desc'] 		= 'For page-level headers lower in the hierarchy than the h5.';
 			$i++;
 
-			$output		= '';
-			$output		.= '<div class="style_section' . $this->get_spacer() . '" id="headers">';
-			$output		.= '<span class="backtotoplink"><a href="#">Back to top</a></span>';
-			$output		.= '<h2 class="section_title">Headers</h2>';
-			$output		.= '<p class="section_description">Header elements have a hierarchy, the top being the h1, or Header 1. Most of the time, headers should be used for things like titles, subheaders, or section titles.</p>';
+			echo '<div class="style_section' . $this->get_spacer() . '" id="headers">';
+			echo '<span class="backtotoplink"><a href="#">Back to top</a></span>';
+			echo '<h2 class="section_title">Headers</h2>';
+			echo '<p class="section_description">Header elements have a hierarchy, the top being the h1, or Header 1. Most of the time, headers should be used for things like titles, subheaders, or section titles.</p>';
 
 			foreach ( $items as $item ) {
 
-				$output	.= $item['example'];
-				$output	.= '<p>' . $item['desc'] . '</p>';
+				echo $item['example'];
+				echo '<p>' . $item['desc'] . '</p>';
 
 			} // foreach loop
 
-			echo $output;
+			echo '</div><!-- .style_section -->';
 
    		} // add_headers()
 
@@ -510,7 +499,11 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) {
 
 			$items[$i]['title']		= 'Blockquotes';
 			$items[$i]['desc']		= 'Represents a section that is being quoted from another source.';
-			$items[$i]['example']	= '<blockquote cite="http://www.worldwildlife.org/who/index.html">For 50 years, WWF has been protecting the future of nature. The world\'s leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States and close to 5 million globally.</blockquote>';
+			$items[$i]['example']	= '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non lacus enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut mauris sem, rutrum a quam eu, congue consectetur enim. Phasellus pulvinar vitae est a efficitur. Ut pulvinar varius pretium. Nullam fringilla est ac consectetur semper. Donec vel nisi nec ante accumsan tempus eu eu nunc. Suspendisse vitae justo porttitor, gravida purus nec, laoreet ante. Nulla viverra libero sed consectetur consequat. Nam egestas lacinia velit, a mattis mi egestas facilisis. Nulla fermentum felis a dolor scelerisque, ac fermentum odio condimentum. Quisque rutrum dolor eget neque mattis, sit amet bibendum tortor iaculis. Phasellus faucibus vestibulum nulla sit amet semper. Sed vulputate, enim eget rutrum accumsan, dolor leo semper velit, id mattis tellus purus et mi. Praesent consequat tincidunt nibh, eu mollis orci vulputate eget. Sed gravida justo sit amet sem accumsan pulvinar.</p>
+
+				<blockquote cite="http://www.worldwildlife.org/who/index.html">For 50 years, WWF has been protecting the future of nature. The world\'s leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States and close to 5 million globally.</blockquote>
+
+				<p>Vivamus euismod eros eu pellentesque dictum. Phasellus sollicitudin lacus eget mi placerat gravida. In in lacinia sapien. Proin at ante at purus commodo pharetra vitae in diam. Aliquam dapibus pretium dui eget sagittis. Suspendisse lacinia ut erat et pretium. Pellentesque in tristique elit. Mauris viverra nisi fringilla tortor aliquet, sit amet consequat diam iaculis. Nunc nec iaculis dolor. Nulla elit lorem, placerat vitae placerat in, pellentesque ut odio. Sed sit amet tempus tellus, quis vulputate lectus. Pellentesque quis tellus rutrum mauris aliquet dapibus sit amet vitae arcu.</p>';
 			$i++;
 			
 			$items[$i]['title']		= 'Bold / Embolden';
@@ -539,28 +532,28 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) {
 			$i++;
 			
 			$items[$i]['title']		= 'Paragraph, default alignment';
-			$items[$i]['desc']		= 'Blocks of text. Many times the p tags are added by WordPress automatically.';
-			$items[$i]['example']	= '<p>This text is inside a paragraph. I have nothing important to say here, so I plan to type until I get annoyed with myself and how ridiculous this is while typing this out for you to read on the screen. Yeah, I can be finished now.</p>';
+			$items[$i]['desc']		= 'Blocks of text. Many times the p tags are added by WordPress automatically. This text should have the default alignment.';
+			$items[$i]['example']	= '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non lacus enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut mauris sem, rutrum a quam eu, congue consectetur enim. Phasellus pulvinar vitae est a efficitur. Ut pulvinar varius pretium. Nullam fringilla est ac consectetur semper. Donec vel nisi nec ante accumsan tempus eu eu nunc. Suspendisse vitae justo porttitor, gravida purus nec, laoreet ante. Nulla viverra libero sed consectetur consequat. Nam egestas lacinia velit, a mattis mi egestas facilisis. Nulla fermentum felis a dolor scelerisque, ac fermentum odio condimentum. Quisque rutrum dolor eget neque mattis, sit amet bibendum tortor iaculis. Phasellus faucibus vestibulum nulla sit amet semper. Sed vulputate, enim eget rutrum accumsan, dolor leo semper velit, id mattis tellus purus et mi. Praesent consequat tincidunt nibh, eu mollis orci vulputate eget. Sed gravida justo sit amet sem accumsan pulvinar.</p>';
 			$i++;
 			
 			$items[$i]['title']		= 'Paragraph, justified';
-			$items[$i]['desc']		= 'Blocks of text. Many times the p tags are added by WordPress automatically.';
-			$items[$i]['example']	= '<p style="text-align: justify;">This text is inside a paragraph. I have nothing important to say here, so I plan to type until I get annoyed with myself and how ridiculous this is while typing this out for you to read on the screen. Yeah, I can be finished now.</p>';
+			$items[$i]['desc']		= 'Blocks of text. Many times the p tags are added by WordPress automatically. This text should be justified.';
+			$items[$i]['example']	= '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non lacus enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut mauris sem, rutrum a quam eu, congue consectetur enim. Phasellus pulvinar vitae est a efficitur. Ut pulvinar varius pretium. Nullam fringilla est ac consectetur semper. Donec vel nisi nec ante accumsan tempus eu eu nunc. Suspendisse vitae justo porttitor, gravida purus nec, laoreet ante. Nulla viverra libero sed consectetur consequat. Nam egestas lacinia velit, a mattis mi egestas facilisis. Nulla fermentum felis a dolor scelerisque, ac fermentum odio condimentum. Quisque rutrum dolor eget neque mattis, sit amet bibendum tortor iaculis. Phasellus faucibus vestibulum nulla sit amet semper. Sed vulputate, enim eget rutrum accumsan, dolor leo semper velit, id mattis tellus purus et mi. Praesent consequat tincidunt nibh, eu mollis orci vulputate eget. Sed gravida justo sit amet sem accumsan pulvinar.</p>';
 			$i++;
 			
 			$items[$i]['title']		= 'Paragraph, center alignment';
-			$items[$i]['desc']		= 'Blocks of text. Many times the p tags are added by WordPress automatically.';
-			$items[$i]['example']	= '<p style="text-align: center;">This text is inside a paragraph. I have nothing important to say here, so I plan to type until I get annoyed with myself and how ridiculous this is while typing this out for you to read on the screen. Yeah, I can be finished now.</p>';
+			$items[$i]['desc']		= 'Blocks of text. Many times the p tags are added by WordPress automatically. This text should be aligned to the center.';
+			$items[$i]['example']	= '<p style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non lacus enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut mauris sem, rutrum a quam eu, congue consectetur enim. Phasellus pulvinar vitae est a efficitur. Ut pulvinar varius pretium. Nullam fringilla est ac consectetur semper. Donec vel nisi nec ante accumsan tempus eu eu nunc. Suspendisse vitae justo porttitor, gravida purus nec, laoreet ante. Nulla viverra libero sed consectetur consequat. Nam egestas lacinia velit, a mattis mi egestas facilisis. Nulla fermentum felis a dolor scelerisque, ac fermentum odio condimentum. Quisque rutrum dolor eget neque mattis, sit amet bibendum tortor iaculis. Phasellus faucibus vestibulum nulla sit amet semper. Sed vulputate, enim eget rutrum accumsan, dolor leo semper velit, id mattis tellus purus et mi. Praesent consequat tincidunt nibh, eu mollis orci vulputate eget. Sed gravida justo sit amet sem accumsan pulvinar.</p>';
 			$i++;
 			
 			$items[$i]['title']		= 'Paragraph, left alignment';
-			$items[$i]['desc']		= 'Blocks of text. Many times the p tags are added by WordPress automatically.';
-			$items[$i]['example']	= '<p style="text-align: left;">This text is inside a paragraph. I have nothing important to say here, so I plan to type until I get annoyed with myself and how ridiculous this is while typing this out for you to read on the screen. Yeah, I can be finished now.</p>';
+			$items[$i]['desc']		= 'Blocks of text. Many times the p tags are added by WordPress automatically. This text should be aligned to the left.';
+			$items[$i]['example']	= '<p style="text-align: left;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non lacus enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut mauris sem, rutrum a quam eu, congue consectetur enim. Phasellus pulvinar vitae est a efficitur. Ut pulvinar varius pretium. Nullam fringilla est ac consectetur semper. Donec vel nisi nec ante accumsan tempus eu eu nunc. Suspendisse vitae justo porttitor, gravida purus nec, laoreet ante. Nulla viverra libero sed consectetur consequat. Nam egestas lacinia velit, a mattis mi egestas facilisis. Nulla fermentum felis a dolor scelerisque, ac fermentum odio condimentum. Quisque rutrum dolor eget neque mattis, sit amet bibendum tortor iaculis. Phasellus faucibus vestibulum nulla sit amet semper. Sed vulputate, enim eget rutrum accumsan, dolor leo semper velit, id mattis tellus purus et mi. Praesent consequat tincidunt nibh, eu mollis orci vulputate eget. Sed gravida justo sit amet sem accumsan pulvinar.</p>';
 			$i++;
 			
 			$items[$i]['title']		= 'Paragraph, right alignment';
-			$items[$i]['desc']		= 'Blocks of text. Many times the p tags are added by WordPress automatically.';
-			$items[$i]['example']	= '<p style="text-align: right;">This text is inside a paragraph. I have nothing important to say here, so I plan to type until I get annoyed with myself and how ridiculous this is while typing this out for you to read on the screen. Yeah, I can be finished now.</p>';
+			$items[$i]['desc']		= 'Blocks of text. Many times the p tags are added by WordPress automatically. This text should be aligned to the right.';
+			$items[$i]['example']	= '<p style="text-align: right;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non lacus enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut mauris sem, rutrum a quam eu, congue consectetur enim. Phasellus pulvinar vitae est a efficitur. Ut pulvinar varius pretium. Nullam fringilla est ac consectetur semper. Donec vel nisi nec ante accumsan tempus eu eu nunc. Suspendisse vitae justo porttitor, gravida purus nec, laoreet ante. Nulla viverra libero sed consectetur consequat. Nam egestas lacinia velit, a mattis mi egestas facilisis. Nulla fermentum felis a dolor scelerisque, ac fermentum odio condimentum. Quisque rutrum dolor eget neque mattis, sit amet bibendum tortor iaculis. Phasellus faucibus vestibulum nulla sit amet semper. Sed vulputate, enim eget rutrum accumsan, dolor leo semper velit, id mattis tellus purus et mi. Praesent consequat tincidunt nibh, eu mollis orci vulputate eget. Sed gravida justo sit amet sem accumsan pulvinar.</p>';
 			$i++;
 			
 			$items[$i]['title']		= 'Subscript';
@@ -573,23 +566,22 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) {
 			$items[$i]['example']	= 'The anomoly occured as many as log<sup>8</sup> times per day.';
 			$i++;
 
-   			$output 	= '';
-			$output		.= '<div class="style_section' . $this->get_spacer() . '" id="structural">';
-			$output		.= '<span class="backtotoplink"><a href="#">Back to top</a></span>';
-			$output		.= '<h2 class="section_title">Structural Tags</h2>';
-			$output		.= '<p class="section_description">Structural tags describe the layout of a page.</p>';
+			echo '<div class="style_section' . $this->get_spacer() . '" id="structural">';
+			echo '<span class="backtotoplink"><a href="#">Back to top</a></span>';
+			echo '<h2 class="section_title">Structural Tags</h2>';
+			echo '<p class="section_description">Structural tags describe the layout of a page.</p>';
 
 			foreach ( $items as $item ) {
 
-				$output .= '<div class="style_item">';
-				$output .= '<h3 class="item_title">' . $item['title'] . '</h3>';
-				$output .= '<p class="item_description">' . $item['desc'] . '</p>';
-				$output .= '<span class="item_example">' . $item['example'] . '</span>';
-				$output .= '</div><!-- End of style item -->';
+				echo '<div class="style_item">';
+				echo '<h3 class="item_title">' . $item['title'] . '</h3>';
+				echo '<p class="item_description">' . $item['desc'] . '</p>';
+				echo '<span class="item_example">' . $item['example'] . '</span>';
+				echo '</div><!-- End of style item -->';
 
 			} // foreach loop
 
-			echo $output;
+			echo '</div><!-- .style_section -->';
 
    		} // add_structural()
 
@@ -627,7 +619,7 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) {
 			
 			$items[$i]['title']		= 'Deleted Text';
 			$items[$i]['desc']		= 'Shows deleted or retracted text, usually followed by the updated or corrected text. Has a datetime attribute for timestamping the change.';
-			$items[$i]['example']	= 'He won <del datetime="2012-02-05">7</del><ins datetime="2014-02-05">2</ins> world titles.';
+			$items[$i]['example']	= 'He won <del datetime="2012-02-05">7</del> <ins datetime="2014-02-05">2</ins> world titles.';
 			$i++;
 			
 			$items[$i]['title']		= 'Emphasis';
@@ -659,9 +651,9 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) {
 			$items[$i]['desc']		= 'Represents a block of pre-formatted text, in which structure is represented by typographic conventions rather than by elements. Such examples are an e-mail (with paragraphs indicated by blank lines, lists indicated by lines prefixed with a bullet), fragments of computer code (with structure indicated according to the conventions of that language) or displaying ASCII art.';
 			$items[$i]['example']	= '<pre>Text in a pre element
 			is displayed in a fixed-width
-			font, and it preserves
-			both	  spaces and
-			line breaks</pre>';
+font, and it preserves
+	both	  tabs, spaces and
+		line breaks</pre>';
 			$i++;
 			
 			$items[$i]['title']		= 'Sample Output';
@@ -694,23 +686,22 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) {
 			$items[$i]['example']	= 'We determined the Towers of Hanoi problem would be solved in <var>n</var> moves, based on the number of disks.';
 			$i++;
 
-   			$output 	= '';
-			$output		.= '<div class="style_section' . $this->get_spacer() . '" id="semantic">';
-			$output		.= '<span class="backtotoplink"><a href="#">Back to top</a></span>';
-			$output		.= '<h2 class="section_title">Semantic Tags</h2>';
-			$output		.= '<p class="section_description">Semantic tags clearly describe the meaning of information to both the browser and the developer.</p>';
+			echo '<div class="style_section' . $this->get_spacer() . '" id="semantic">';
+			echo '<span class="backtotoplink"><a href="#">Back to top</a></span>';
+			echo '<h2 class="section_title">Semantic Tags</h2>';
+			echo '<p class="section_description">Semantic tags clearly describe the meaning of information to both the browser and the developer.</p>';
 
 			foreach ( $items as $item ) {
 
-				$output .= '<div class="style_item">';
-				$output .= '<h3 class="item_title">' . $item['title'] . '</h3>';
-				$output .= '<p class="item_description">' . $item['desc'] . '</p>';
-				$output .= '<span class="item_example">' . $item['example'] . '</span>';
-				$output .= '</div><!-- End of style item -->';
+				echo '<div class="style_item">';
+				echo '<h3 class="item_title">' . $item['title'] . '</h3>';
+				echo '<p class="item_description">' . $item['desc'] . '</p>';
+				echo '<span class="item_example">' . $item['example'] . '</span>';
+				echo '</div><!-- End of style item -->';
 
 			} // foreach loop
 
-			echo $output;
+			echo '</div><!-- .style_section -->';
 
    		} // add_semantic()
 
@@ -757,23 +748,22 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) {
 			$items[$i]['example']	= '<ul><li>Bob</li><li>Sam<ul><li>Sally</li><li>Samantha</li></ul></li><li>Jessica</li></ul>';
 			$i++;
 
-   			$output		= '';
-			$output		.= '<div class="style_section' . $this->get_spacer() . '" id="lists">';
-			$output		.= '<span class="backtotoplink"><a href="#">Back to top</a></span>';
-			$output		.= '<h2 class="section_title">Lists</h2>';
-			$output		.= '<p class="section_description">Lists help organize data. They can be ordered or unordered and they can be nested.</p>';
+			echo '<div class="style_section' . $this->get_spacer() . '" id="lists">';
+			echo '<span class="backtotoplink"><a href="#">Back to top</a></span>';
+			echo '<h2 class="section_title">Lists</h2>';
+			echo '<p class="section_description">Lists help organize data. They can be ordered or unordered and they can be nested.</p>';
 
 			foreach ( $items as $item ) {
 
-				$output .= '<div class="style_item">';
-				$output .= '<h3 class="item_title">' . $item['title'] . '</h3>';
-				$output .= '<p class="item_description">' . $item['desc'] . '</p>';
-				$output .= '<span class="item_example">' . $item['example'] . '</span>';
-				$output .= '</div><!-- End of style item -->';
+				echo '<div class="style_item">';
+				echo '<h3 class="item_title">' . $item['title'] . '</h3>';
+				echo '<p class="item_description">' . $item['desc'] . '</p>';
+				echo '<span class="item_example">' . $item['example'] . '</span>';
+				echo '</div><!-- End of style item -->';
 
 			} // foreach loop
 
-			echo $output;
+			echo '</div><!-- .style_section -->';
 
    		} // add_lists()
 
@@ -794,23 +784,22 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) {
 			$items[$i]['example']	= '<table><thead><tr><th>Column 1</th><th>Column 2</th></tr></thead><tbody><tr><td>Row 1, Col 1</td><td>Row 1, Col 2</td></tr><tr><td>Row 2, Col 1</td><td>Row 2, Col 1</td></tr><tr><td>Row 3, Col 1</td><td>Row 3, Col 1</td></tr></tbody></table>';
 			$i++;
 
-   			$output		= '';
-			$output		.= '<div class="style_section' . $this->get_spacer() . '" id="tables">';
-			$output		.= '<span class="backtotoplink"><a href="#">Back to top</a></span>';
-			$output		.= '<h2 class="section_title">Tables</h2>';
-			$output		.= '<p class="section_description">Tables should be used when displaying tabular data. The thead, tfoot and tbody elements enable you to group rows within each a table.<br /><br />If you use these elements, you must use every element. They should appear in this order: thead, tfoot and tbody, so that browsers can render the foot before receiving all the data. You must use these tags within the table element.</p>';
+			echo '<div class="style_section' . $this->get_spacer() . '" id="tables">';
+			echo '<span class="backtotoplink"><a href="#">Back to top</a></span>';
+			echo '<h2 class="section_title">Tables</h2>';
+			echo '<p class="section_description">Tables should be used when displaying tabular data. The thead, tfoot and tbody elements enable you to group rows within each a table.<br /><br />If you use these elements, you must use every element. They should appear in this order: thead, tfoot and tbody, so that browsers can render the foot before receiving all the data. You must use these tags within the table element.</p>';
 
 			foreach ( $items as $item ) {
 
-				$output .= '<div class="style_item">';
-				$output .= '<h3 class="item_title">' . $item['title'] . '</h3>';
-				$output .= '<p class="item_description">' . $item['desc'] . '</p>';
-				$output .= '<span class="item_example">' . $item['example'] . '</span>';
-				$output .= '</div><!-- End of style item -->';
+				echo '<div class="style_item">';
+				echo '<h3 class="item_title">' . $item['title'] . '</h3>';
+				echo '<p class="item_description">' . $item['desc'] . '</p>';
+				echo '<span class="item_example">' . $item['example'] . '</span>';
+				echo '</div><!-- End of style item -->';
 
 			} // foreach loop
 
-			echo $output;
+			echo '</div><!-- .style_section -->';
 
    		} // add_tables()
 
@@ -887,23 +876,22 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) {
 				</form>';
 			$i++;
 
-   			$output		= '';
-			$output		.= '<div class="style_section' . $this->get_spacer() . '" id="forms_and_fields">';
-			$output		.= '<span class="backtotoplink"><a href="#">Back to top</a></span>';
-			$output		.= '<h2 class="section_title">Forms and Fields</h2>';
-			$output		.= '<p class="section_description">Forms can be used when you wish to collect data from users. The fieldset element enables you to group related fields within a form, like a set of checkboxes, and each one should contain a corresponding legend. The label element ensures field descriptions are associated with their corresponding form widgets.</p>';
+			echo '<div class="style_section' . $this->get_spacer() . '" id="forms_and_fields">';
+			echo '<span class="backtotoplink"><a href="#">Back to top</a></span>';
+			echo '<h2 class="section_title">Forms and Fields</h2>';
+			echo '<p class="section_description">Forms can be used when you wish to collect data from users. The fieldset element enables you to group related fields within a form, like a set of checkboxes, and each one should contain a corresponding legend. The label element ensures field descriptions are associated with their corresponding form widgets.</p>';
 
 			foreach ( $items as $item ) {
 
-				$output .= '<div class="style_item">';
-				$output .= '<h3 class="item_title">' . $item['title'] . '</h3>';
-				$output .= '<p class="item_description">' . $item['desc'] . '</p>';
-				$output .= '<span class="item_example">' . $item['example'] . '</span>';
-				$output .= '</div><!-- End of style item -->';
+				echo '<div class="style_item">';
+				echo '<h3 class="item_title">' . $item['title'] . '</h3>';
+				echo '<p class="item_description">' . $item['desc'] . '</p>';
+				echo '<span class="item_example">' . $item['example'] . '</span>';
+				echo '</div><!-- End of style item -->';
 
 			} // foreach loop
 
-			echo $output;
+			echo '</div><!-- .style_section -->';
 
    		} // add_forms_and_fields()
 
@@ -929,23 +917,22 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) {
 				<p><a href="#">Cancel</a></p>';
 			$i++;
 
-   			$output		= '';
-			$output		.= '<div class="style_section' . $this->get_spacer() . '" id="buttons">';
-			$output		.= '<span class="backtotoplink"><a href="#">Back to top</a></span>';
-			$output		.= '<h2 class="section_title">Buttons</h2>';
-			$output		.= '<p class="section_description">Buttons are mostly used with forms.</p>';
+			echo '<div class="style_section' . $this->get_spacer() . '" id="buttons">';
+			echo '<span class="backtotoplink"><a href="#">Back to top</a></span>';
+			echo '<h2 class="section_title">Buttons</h2>';
+			echo '<p class="section_description">Buttons are mostly used with forms.</p>';
 
 			foreach ( $items as $item ) {
 
-				$output .= '<div class="style_item">';
-				$output .= '<h3 class="item_title">' . $item['title'] . '</h3>';
-				$output .= '<p class="item_description">' . $item['desc'] . '</p>';
-				$output .= '<span class="item_example">' . $item['example'] . '</span>';
-				$output .= '</div><!-- End of style item -->';
+				echo '<div class="style_item">';
+				echo '<h3 class="item_title">' . $item['title'] . '</h3>';
+				echo '<p class="item_description">' . $item['desc'] . '</p>';
+				echo '<span class="item_example">' . $item['example'] . '</span>';
+				echo '</div><!-- End of style item -->';
 
 			} // foreach loop
 
-			echo $output;
+			echo '</div><!-- .style_section -->';
 
    		} // add_buttons()
 
@@ -1022,23 +1009,22 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) {
 			$items[$i]['example']	= '';
 			$i++;
 
-   			$output		= '';
-			$output		.= '<div class="style_section' . $this->get_spacer() . '" id="media">';
-			$output		.= '<span class="backtotoplink"><a href="#">Back to top</a></span>';
-			$output		.= '<h2 class="section_title">Media</h2>';
-			$output		.= '<p class="section_description"></p>';
+			echo '<div class="style_section' . $this->get_spacer() . '" id="media">';
+			echo '<span class="backtotoplink"><a href="#">Back to top</a></span>';
+			echo '<h2 class="section_title">Media</h2>';
+			echo '<p class="section_description"></p>';
 
 			foreach ( $items as $item ) {
 
-				$output .= '<div class="style_item">';
-				$output .= '<h3 class="item_title">' . $item['title'] . '</h3>';
-				$output .= '<p class="item_description">' . $item['desc'] . '</p>';
-				$output .= '<span class="item_example">' . $item['example'] . '</span>';
-				$output .= '</div><!-- End of style item -->';
+				echo '<div class="style_item">';
+				echo '<h3 class="item_title">' . $item['title'] . '</h3>';
+				echo '<p class="item_description">' . $item['desc'] . '</p>';
+				echo '<span class="item_example">' . $item['example'] . '</span>';
+				echo '</div><!-- End of style item -->';
 
 			} // foreach loop
 
-			echo $output;
+			echo '</div><!-- .style_section -->';
 
    		} // add_media()
 
@@ -1052,47 +1038,28 @@ if ( !class_exists( 'Slushman_WP_Style_Guide' ) ) {
  */
    		public function add_widgets() {
 
-   			the_widget( 'WP_Widget_Archives' );
-   			the_widget( 'WP_Widget_Calendar' );
-   			the_widget( 'WP_Widget_Categories' );
-   			the_widget( 'WP_Widget_Links' );
-   			the_widget( 'WP_Widget_Meta' );
-   			the_widget( 'WP_Widget_Pages' );
-   			the_widget( 'WP_Widget_Recent_Comments' );
-   			the_widget( 'WP_Widget_Recent_Posts' );
-   			the_widget( 'WP_Widget_RSS' );
-   			the_widget( 'WP_Widget_Search' );
-   			the_widget( 'WP_Widget_Tag_Cloud' );
-   			the_widget( 'WP_Widget_Text' );
-   			the_widget( 'WP_Nav_Menu_Widget' );
+			echo '<div class="style_section' . $this->get_spacer() . '" id="widgets">';
+			echo '<span class="backtotoplink"><a href="#">Back to top</a></span>';
+			echo '<h2 class="section_title">Widgets</h2>';
+			echo '<p class="section_description">These are the default widgets included with WordPress.</p>';
+
+			the_widget( 'WP_Widget_Archives' );
+			the_widget( 'WP_Widget_Calendar', array( 'title' => 'Calendar' ) );
+			the_widget( 'WP_Widget_Categories' );
+			the_widget( 'WP_Widget_Meta' );
+			the_widget( 'WP_Widget_Pages' );
+			the_widget( 'WP_Widget_Recent_Comments' );
+			the_widget( 'WP_Widget_Recent_Posts' );
+			the_widget( 'WP_Widget_RSS', array( 'title' => 'Slushman Design', 'url' => 'http://slushman.com/feed/', 'items' => 3 ) );
+			the_widget( 'WP_Widget_Search' );
+			the_widget( 'WP_Widget_Tag_Cloud' );
+			the_widget( 'WP_Widget_Text', array( 'title' => 'Text Widget', 'text' => 'This is a text widget.' ) );
+
+			echo '</div><!-- .style_section -->';
 
    		} // add_widgets()
 
-/**
- * Adds a sidebar and all default WordPress widgets
- *
- * @access 	public
- * @since 	0.1
- * 
- * @return 	void
- */
-   		public function add_widgets_to_sidebar() {
 
-   			the_widget( 'WP_Widget_Archives' );
-   			the_widget( 'WP_Widget_Calendar' );
-   			the_widget( 'WP_Widget_Categories' );
-   			the_widget( 'WP_Widget_Links' );
-   			the_widget( 'WP_Widget_Meta' );
-   			the_widget( 'WP_Widget_Pages' );
-   			the_widget( 'WP_Widget_Recent_Comments' );
-   			the_widget( 'WP_Widget_Recent_Posts' );
-   			the_widget( 'WP_Widget_RSS' );
-   			the_widget( 'WP_Widget_Search' );
-   			the_widget( 'WP_Widget_Tag_Cloud' );
-   			the_widget( 'WP_Widget_Text' );
-   			the_widget( 'WP_Nav_Menu_Widget' );
-
-   		} // add_widgets_to_sidebar()   		
 
 /* ==========================================================================
    Create Methods

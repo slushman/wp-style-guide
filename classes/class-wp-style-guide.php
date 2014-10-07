@@ -950,52 +950,52 @@ font, and it preserves
 
 			$items[$i]['title']		= 'Figure, image';
 			$items[$i]['desc']		= 'Specifies self-contained content, like illustrations, diagrams, photos, code listings, etc.';
-			$items[$i]['example']	= '<figure><img src="' . plugin_dir_url( __FILE__ ) . 'images/figure_test_picture.jpg" alt="Figure test picture" /></figure>';
+			$items[$i]['example']	= '<figure><img src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'images/figure_test_picture.jpg" alt="Figure test picture" /></figure>';
 			$i++;
 
 			$items[$i]['title']		= 'Figure, image with caption';
 			$items[$i]['desc']		= 'Specifies self-contained content, like illustrations, diagrams, photos, code listings, etc.';
-			$items[$i]['example']	= '<figure><img src="' . plugin_dir_url( __FILE__ ) . 'images/figure_test_picture.jpg" alt="Figure test picture" /><figcaption><cite><a href="http://www.flickr.com/photos/vespa_freak/7733798164/">Wheels 2</a></cite> by Mike Kuusela</figcaption></figure>';
+			$items[$i]['example']	= '<figure><img src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'images/figure_test_picture.jpg" alt="Figure test picture" /><figcaption><cite><a href="http://www.flickr.com/photos/vespa_freak/7733798164/">Wheels 2</a></cite> by Mike Kuusela</figcaption></figure>';
 			$i++;
 
 			$items[$i]['title']		= 'Image, align left';
 			$items[$i]['desc']		= '';
-			$items[$i]['example']	= '<img src="' . plugin_dir_url( __FILE__ ) . 'images/figure_test_picture.jpg" alt="align left picture" class="alignleft" />';
+			$items[$i]['example']	= '<img src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'images/figure_test_picture.jpg" alt="align left picture" class="alignleft" />';
 			$i++;
 
 			$items[$i]['title']		= 'Image, align center';
 			$items[$i]['desc']		= '';
-			$items[$i]['example']	= '<img src="' . plugin_dir_url( __FILE__ ) . 'images/figure_test_picture.jpg" alt="align center picture" class="aligncenter" />';
+			$items[$i]['example']	= '<img src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'images/figure_test_picture.jpg" alt="align center picture" class="aligncenter" />';
 			$i++;
 
 			$items[$i]['title']		= 'Image, align right';
 			$items[$i]['desc']		= '';
-			$items[$i]['example']	= '<img src="' . plugin_dir_url( __FILE__ ) . 'images/figure_test_picture.jpg" alt="align right picture" class="alignright" />';
+			$items[$i]['example']	= '<img src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'images/figure_test_picture.jpg" alt="align right picture" class="alignright" />';
 			$i++;
 
 			$items[$i]['title']		= 'Image, no alignment';
 			$items[$i]['desc']		= '';
-			$items[$i]['example']	= '<img src="' . plugin_dir_url( __FILE__ ) . 'images/figure_test_picture.jpg" alt="image with caption picture" class="alignnone" />';
+			$items[$i]['example']	= '<img src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'images/figure_test_picture.jpg" alt="image with caption picture" class="alignnone" />';
 			$i++;
 
 			$items[$i]['title']		= 'Image, align left, with caption';
 			$items[$i]['desc']		= '';
-			$items[$i]['example']	= '<div class="wp-caption alignleft" style="width:500px;"><img src="' . plugin_dir_url( __FILE__ ) . 'images/figure_test_picture.jpg" alt="align left picture" class="" /><p class="wp-caption-text">This is a caption.</p></div>This text will surround the picture and should appear on the left.';
+			$items[$i]['example']	= '<div class="wp-caption alignleft" style="width:500px;"><img src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'images/figure_test_picture.jpg" alt="align left picture" class="" /><p class="wp-caption-text">This is a caption.</p></div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non lacus enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut mauris sem, rutrum a quam eu, congue consectetur enim. Phasellus pulvinar vitae est a efficitur. Ut pulvinar varius pretium. Nullam fringilla est ac consectetur semper. Donec vel nisi nec ante accumsan tempus eu eu nunc. Suspendisse vitae justo porttitor, gravida purus nec, laoreet ante. Nulla viverra libero sed consectetur consequat. Nam egestas lacinia velit, a mattis mi egestas facilisis. Nulla fermentum felis a dolor scelerisque, ac fermentum odio condimentum. Quisque rutrum dolor eget neque mattis, sit amet bibendum tortor iaculis. Phasellus faucibus vestibulum nulla sit amet semper. Sed vulputate, enim eget rutrum accumsan, dolor leo semper velit, id mattis tellus purus et mi. Praesent consequat tincidunt nibh, eu mollis orci vulputate eget. Sed gravida justo sit amet sem accumsan pulvinar.';
 			$i++;
 
 			$items[$i]['title']		= 'Image, align center, with caption';
 			$items[$i]['desc']		= '';
-			$items[$i]['example']	= '<div class="wp-caption aligncenter" style="width:500px;"><img src="' . plugin_dir_url( __FILE__ ) . 'images/figure_test_picture.jpg" alt="align center picture" class="" /><p class="wp-caption-text">This is a caption.</p></div>This text will surround the picture and should appear under the photo.';
+			$items[$i]['example']	= '<div class="wp-caption aligncenter" style="width:500px;"><img src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'images/figure_test_picture.jpg" alt="align center picture" class="" /><p class="wp-caption-text">This is a caption.</p></div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non lacus enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut mauris sem, rutrum a quam eu, congue consectetur enim. Phasellus pulvinar vitae est a efficitur. Ut pulvinar varius pretium. Nullam fringilla est ac consectetur semper. Donec vel nisi nec ante accumsan tempus eu eu nunc. Suspendisse vitae justo porttitor, gravida purus nec, laoreet ante. Nulla viverra libero sed consectetur consequat. Nam egestas lacinia velit, a mattis mi egestas facilisis. Nulla fermentum felis a dolor scelerisque, ac fermentum odio condimentum. Quisque rutrum dolor eget neque mattis, sit amet bibendum tortor iaculis. Phasellus faucibus vestibulum nulla sit amet semper. Sed vulputate, enim eget rutrum accumsan, dolor leo semper velit, id mattis tellus purus et mi. Praesent consequat tincidunt nibh, eu mollis orci vulputate eget. Sed gravida justo sit amet sem accumsan pulvinar.';
 			$i++;
 
 			$items[$i]['title']		= 'Image, align right, with caption';
 			$items[$i]['desc']		= '';
-			$items[$i]['example']	= '<div class="wp-caption alignright" style="width:500px;"><img src="' . plugin_dir_url( __FILE__ ) . 'images/figure_test_picture.jpg" alt="align right picture" class="" /><p class="wp-caption-text">This is a caption.</p></div>This text will surround the picture and should appear on the right.';
+			$items[$i]['example']	= '<div class="wp-caption alignright" style="width:500px;"><img src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'images/figure_test_picture.jpg" alt="align right picture" class="" /><p class="wp-caption-text">This is a caption.</p></div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non lacus enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut mauris sem, rutrum a quam eu, congue consectetur enim. Phasellus pulvinar vitae est a efficitur. Ut pulvinar varius pretium. Nullam fringilla est ac consectetur semper. Donec vel nisi nec ante accumsan tempus eu eu nunc. Suspendisse vitae justo porttitor, gravida purus nec, laoreet ante. Nulla viverra libero sed consectetur consequat. Nam egestas lacinia velit, a mattis mi egestas facilisis. Nulla fermentum felis a dolor scelerisque, ac fermentum odio condimentum. Quisque rutrum dolor eget neque mattis, sit amet bibendum tortor iaculis. Phasellus faucibus vestibulum nulla sit amet semper. Sed vulputate, enim eget rutrum accumsan, dolor leo semper velit, id mattis tellus purus et mi. Praesent consequat tincidunt nibh, eu mollis orci vulputate eget. Sed gravida justo sit amet sem accumsan pulvinar.';
 			$i++;
 
 			$items[$i]['title']		= 'Image, no alignment, with caption';
 			$items[$i]['desc']		= '';
-			$items[$i]['example']	= '<div class="wp-caption alignnone"><img src="' . plugin_dir_url( __FILE__ ) . 'images/figure_test_picture.jpg" alt="image with caption picture" /><p class="wp-caption-text">This is a caption.</p></div>';
+			$items[$i]['example']	= '<div class="wp-caption alignnone"><img src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'images/figure_test_picture.jpg" alt="image with caption picture" /><p class="wp-caption-text">This is a caption.</p></div>';
 			$i++;
 
 

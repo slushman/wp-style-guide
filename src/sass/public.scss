@@ -1,0 +1,50 @@
+$vspacing: 1.5em;
+
+
+
+.guide-desc,
+.top-section {
+	margin-bottom: $vspacing * 2;
+}
+
+.style-section {
+	border-bottom 	: 1px solid;
+	margin-bottom 	: $vspacing * 2;
+	padding-bottom 	: $vspacing * 2;
+}
+
+.section-title {
+}
+
+.backtotoplink {
+	display 	: inline-block;
+	float 		: right;
+	font-size 	: 0.75em;
+}
+
+.section-description {
+
+}
+
+.style-item {
+	margin-bottom: $vspacing * 2;
+}
+
+.item-title {
+
+}
+
+.item-desc {
+
+}
+
+.item-example {
+	border 		: dotted;
+	display 	: block;
+	overflow 	: hidden;
+	padding 	: $vspacing;
+}
+
+.top-spacer {
+	padding-top: 35px;
+}

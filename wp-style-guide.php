@@ -2,16 +2,14 @@
 /**
  * WP Style Guide: creates a style guide for designers and their clients.
  *
- * Loosely based on the WordPress Plugin Boilerplate by Tom McFarlin
- *
  * @package 	WP Style Guide
  * @author    	Slushman <chris@slushman.com>
- * @copyright 	Copyright (c) 2014, Slushman
+ * @copyright 	Copyright (c) 2016, Slushman
  * @license   	GPL-2.0+
  * @license   	http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @link      	http://slushman.com/plugins/wp-style-guide
  * @version   	0.1
- * 
+ *
  * @wordpress-plugin
  * Plugin Name: 		WP Style Guide
  * Plugin URI: 			http://slushman.com/plugins/wp-style-guide
@@ -32,41 +30,85 @@
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) { die; }
 
-/*----------------------------------------------------------------------------*
- * Public-Facing Functionality
- *----------------------------------------------------------------------------*/
+/**
+ * Define constants
+ */
+define( 'WPSTYLEGUIDE_VERSION', '1.0.0' );
+define( 'WPSTYLEGUIDE_SLUG', 'wp-style-guide' );
+define( 'WPSTYLEGUIDE_FILE', plugin_basename( __FILE__ ) );
 
 /**
- * Includes the plugin class file
+ * Activation/Deactivation Hooks
  */
-require_once( plugin_dir_path( __FILE__ ) . 'classes/class-wp-style-guide.php' );
+register_activation_hook( __FILE__, array( 'WP_Style_Guide_Activator', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'WP_Style_Guide_Deactivator', 'deactivate' ) );
 
 /**
- * Register hooks that are fired when the plugin is activated or deactivated.
- * When the plugin is deleted, the uninstall.php file is loaded.
- * Activations errors are saved as a plugin option
+ * Autoloader function
+ *
+ * Will search both plugin root and includes folder for class
+ *
+ * @param string $class_name
  */
-register_activation_hook( __FILE__, array( 'Slushman_WP_Style_Guide', 	'activate' ) );
-register_deactivation_hook( __FILE__, array( 'Slushman_WP_Style_Guide', 'deactivate' ) );
+if ( ! function_exists( 'wp_style_guide_autoloader' ) ) :
 
-/**
- * Loads the plugin instance when plugins are loaded
- */
-add_action( 'plugins_loaded', array( 'Slushman_WP_Style_Guide', 'get_instance' ) );
+	function wp_style_guide_autoloader( $class_name ) {
 
+		$class_name = str_replace( 'WP_Style_Guide_', '', $class_name );
+		$lower 		= strtolower( $class_name );
+		$file      	= 'class-' . str_replace( '_', '-', $lower ) . '.php';
+		$base_path 	= plugin_dir_path( __FILE__ );
+		$paths[] 	= $base_path . $file;
+		$paths[] 	= $base_path . 'classes/' . $file;
 
+		/**
+		 * wp_style_guide_autoloader_paths filter
+		 */
+		$paths = apply_filters( 'wp-style-guide-autoloader-paths', $paths );
 
-/*----------------------------------------------------------------------------*
- * Dashboard and Administrative Functionality
- *----------------------------------------------------------------------------*/
+		foreach ( $paths as $path ) :
 
-/**
- * Includes the admin file and loads the instance of it when the plugins are loaded.
- */
-/*if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
+			if ( is_readable( $path ) && file_exists( $path ) ) {
 
-	require_once( plugin_dir_path( __FILE__ ) . 'classes/class-admin-wpsg.php' );
+				require_once( $path );
+				return;
 
-	add_action( 'plugins_loaded', array( 'WP_Style_Guide_Admin', 'get_instance' ) );
+			}
 
-} // admin check*/
+		endforeach;
+
+	} // wp_style_guide_autoloader()
+
+endif;
+
+spl_autoload_register( 'wp_style_guide_autoloader' );
+
+if ( ! function_exists( 'wp_style_guide' ) ) :
+
+	/**
+	 * Function wrapper to get instance of plugin
+	 *
+	 * @return WP_Style_Guide
+	 */
+	function wp_style_guide() {
+
+		return WP_Style_Guide::get_instance();
+
+	} // wp_style_guide()
+
+endif;
+
+if ( ! function_exists( 'wp_style_guide_init' ) ) :
+
+	/**
+	 * Function to initialize plugin
+	 */
+	function wp_style_guide_init() {
+
+		wp_style_guide()->run();
+
+	}
+
+	add_action( 'plugins_loaded', 'wp_style_guide_init' );
+
+endif;
